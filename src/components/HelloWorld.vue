@@ -30,6 +30,12 @@
             variant="danger" 
             @click="navigateToSecondPage"
           />
+          
+          <CustomButton 
+            text="Drama Girl Fonts" 
+            variant="success" 
+            @click="navigateToFonts"
+          />
         </div>
       </div>
       
@@ -84,6 +90,9 @@ export default {
     },
     navigateToSecondPage() {
       this.$router.push('/second')
+    },
+    navigateToFonts() {
+      this.$router.push('/fonts')
     }
   }
 }

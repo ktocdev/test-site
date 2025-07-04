@@ -47,6 +47,12 @@
             variant="primary" 
             @click="goHome"
           />
+          
+          <CustomButton 
+            text="Drama Girl Fonts" 
+            variant="success" 
+            @click="goToFonts"
+          />
         </div>
         
         <div v-if="showToggleMessage" class="toggle-message">
@@ -79,6 +85,9 @@ export default {
     },
     goHome() {
       this.$router.push('/')
+    },
+    goToFonts() {
+      this.$router.push('/fonts')
     }
   }
 }

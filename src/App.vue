@@ -5,6 +5,7 @@
       <div class="nav-links">
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/second" class="nav-link">Second Page</router-link>
+        <router-link to="/fonts" class="nav-link">Font Showcase</router-link>
       </div>
     </nav>
     
