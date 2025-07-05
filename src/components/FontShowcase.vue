@@ -9,64 +9,40 @@
       <h2>Color Swatches</h2>
       <p class="color-instruction">Click on any color to apply it to the fonts below!</p>
       <div class="color-grid">
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#FF1493' }"
-             style="background: linear-gradient(to bottom, #FF69B4, #C71585);" 
-             @click="selectColor('#FF1493')">
-          <span>#FF1493</span>
-          <small>Deep Pink</small>
-        </div>
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#FF69B4' }"
-             style="background: linear-gradient(to bottom, #FFB6C1, #FF1493);" 
-             @click="selectColor('#FF69B4')">
-          <span>#FF69B4</span>
-          <small>Hot Pink</small>
-        </div>
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#FF20B2' }"
-             style="background: linear-gradient(to bottom, #FF69B4, #B8005F);" 
-             @click="selectColor('#FF20B2')">
-          <span>#FF20B2</span>
-          <small>Magenta</small>
-        </div>
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#C71585' }"
-             style="background: linear-gradient(to bottom, #DA70D6, #8B0A50);" 
-             @click="selectColor('#C71585')">
-          <span>#C71585</span>
-          <small>Medium Violet Red</small>
-        </div>
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#DA70D6' }"
-             style="background: linear-gradient(to bottom, #DDA0DD, #9932CC);" 
-             @click="selectColor('#DA70D6')">
-          <span>#DA70D6</span>
-          <small>Orchid</small>
-        </div>
-        <div class="color-swatch" 
-             :class="{ active: selectedColor === '#BA55D3' }"
-             style="background: linear-gradient(to bottom, #D8BFD8, #8A2BE2);" 
-             @click="selectColor('#BA55D3')">
-          <span>#BA55D3</span>
-          <small>Medium Orchid</small>
-        </div>
+        <ColorSwatch
+          v-for="swatch in colorSwatches"
+          :key="swatch.value"
+          :color-value="swatch.value"
+          :color-name="swatch.name"
+          :gradient="swatch.gradient"
+          :is-active="selectedColor === swatch.value"
+          @select="selectColor"
+        />
       </div>
     </div>
 
     <div class="font-samples">
       <div class="font-samples-header">
         <h2>Font Samples</h2>
-        <CustomButton 
-          :text="animationEnabled ? 'Disable Animation' : 'Enable Animation'"
-          :variant="animationEnabled ? 'danger' : 'success'"
-          @click="toggleAnimation"
-        />
+        <div class="animation-controls">
+          <CustomButton 
+            :text="animationEnabled ? 'Disable Animation' : 'Enable Animation'"
+            :variant="animationEnabled ? 'danger' : 'success'"
+            @click="toggleAnimation"
+          />
+          <CustomButton 
+            :text="heartbeatEnabled ? 'Disable Heartbeat' : 'Enable Heartbeat'"
+            :variant="heartbeatEnabled ? 'danger' : 'success'"
+            @click="toggleHeartbeat"
+          />
+        </div>
       </div>
       
       <div class="font-sample">
         <h3 class="font-name">Fredoka One (Google Fonts)</h3>
-        <div class="logo-sample fredoka-one" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample fredoka-one enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Chunky, rounded, and super playful - perfect for a teen game!</p>
@@ -74,7 +50,9 @@
 
       <div class="font-sample">
         <h3 class="font-name">Righteous (Google Fonts)</h3>
-        <div class="logo-sample righteous" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample righteous enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Bold and energetic with a modern street style vibe.</p>
@@ -82,7 +60,9 @@
 
       <div class="font-sample">
         <h3 class="font-name">Comfortaa (Google Fonts)</h3>
-        <div class="logo-sample comfortaa" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample comfortaa enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Soft, rounded, and friendly - great for approachable design.</p>
@@ -90,7 +70,9 @@
 
       <div class="font-sample">
         <h3 class="font-name">Lalezar (Google Fonts)</h3>
-        <div class="logo-sample lalezar" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample lalezar enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Thick and impactful with a unique character.</p>
@@ -98,7 +80,9 @@
 
       <div class="font-sample">
         <h3 class="font-name">Bungee (Google Fonts)</h3>
-        <div class="logo-sample bungee" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample bungee enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Urban and bold with great visual impact.</p>
@@ -106,23 +90,19 @@
 
       <div class="font-sample">
         <h3 class="font-name">Chewy (Google Fonts)</h3>
-        <div class="logo-sample chewy" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample chewy enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Fun and bouncy with a hand-drawn feel.</p>
       </div>
 
       <div class="font-sample">
-        <h3 class="font-name">Modak (Google Fonts)</h3>
-        <div class="logo-sample modak" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
-          <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
-        </div>
-        <p class="font-description">Extra chunky and decorative for maximum impact.</p>
-      </div>
-
-      <div class="font-sample">
         <h3 class="font-name">Kalam (Google Fonts)</h3>
-        <div class="logo-sample kalam" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample kalam enhanced-text" 
+             :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" 
+             :style="{ color: selectedColor, '--glow-color': selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Handwritten style that's casual and approachable.</p>
@@ -146,9 +126,9 @@
         />
         
         <CustomButton 
-          text="View Second Page" 
-          variant="secondary" 
-          @click="goToSecond"
+          text="Logo Design Studio" 
+          variant="success" 
+          @click="goToLogo"
         />
       </div>
     </div>
@@ -157,29 +137,51 @@
 
 <script>
 import CustomButton from './CustomButton.vue'
+import ColorSwatch from './ColorSwatch.vue'
 
 export default {
   name: 'FontShowcase',
   components: {
-    CustomButton
+    CustomButton,
+    ColorSwatch
   },
   data() {
     return {
       selectedColor: '#FF1493', // Default to Deep Pink
-      animationEnabled: true // Animation starts enabled
-    }
-  },
-  computed: {
-    selectedGradient() {
-      const gradients = {
-        '#FF1493': 'linear-gradient(to bottom, #FF69B4, #C71585)',
-        '#FF69B4': 'linear-gradient(to bottom, #FFB6C1, #FF1493)',
-        '#FF20B2': 'linear-gradient(to bottom, #FF69B4, #B8005F)',
-        '#C71585': 'linear-gradient(to bottom, #DA70D6, #8B0A50)',
-        '#DA70D6': 'linear-gradient(to bottom, #DDA0DD, #9932CC)',
-        '#BA55D3': 'linear-gradient(to bottom, #D8BFD8, #8A2BE2)'
-      }
-      return gradients[this.selectedColor] || gradients['#FF1493']
+      animationEnabled: true, // Animation starts enabled
+      heartbeatEnabled: false, // Heartbeat animation starts disabled
+      colorSwatches: [
+        {
+          value: '#FF1493',
+          name: 'Deep Pink',
+          gradient: 'linear-gradient(to bottom, #FF69B4, #C71585)'
+        },
+        {
+          value: '#FF69B4',
+          name: 'Hot Pink',
+          gradient: 'linear-gradient(to bottom, #FFB6C1, #FF1493)'
+        },
+        {
+          value: '#FF20B2',
+          name: 'Magenta',
+          gradient: 'linear-gradient(to bottom, #FF69B4, #B8005F)'
+        },
+        {
+          value: '#C71585',
+          name: 'Medium Violet Red',
+          gradient: 'linear-gradient(to bottom, #DA70D6, #8B0A50)'
+        },
+        {
+          value: '#DA70D6',
+          name: 'Orchid',
+          gradient: 'linear-gradient(to bottom, #DDA0DD, #9932CC)'
+        },
+        {
+          value: '#BA55D3',
+          name: 'Medium Orchid',
+          gradient: 'linear-gradient(to bottom, #D8BFD8, #8A2BE2)'
+        }
+      ]
     }
   },
   methods: {
@@ -189,11 +191,14 @@ export default {
     toggleAnimation() {
       this.animationEnabled = !this.animationEnabled
     },
+    toggleHeartbeat() {
+      this.heartbeatEnabled = !this.heartbeatEnabled
+    },
     goHome() {
       this.$router.push('/')
     },
-    goToSecond() {
-      this.$router.push('/second')
+    goToLogo() {
+      this.$router.push('/logo')
     }
   }
 }
@@ -201,10 +206,13 @@ export default {
 
 <style scoped>
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Comfortaa:wght@700&family=Lalezar&family=Bungee&family=Chewy&family=Modak&family=Kalam:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Comfortaa:wght@700&family=Lalezar&family=Bungee&family=Chewy&family=Kalam:wght@700&display=swap');
 
 .font-showcase {
   max-width: 100%;
+  background: #1a1a1a;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 .page-header {
@@ -233,23 +241,24 @@ export default {
 }
 
 .color-palette {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   margin-bottom: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .color-palette h2 {
   text-align: center;
-  color: #333;
+  color: #E0E0E0;
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
 
 .color-instruction {
   text-align: center;
-  color: #666;
+  color: #B0B0B0;
   margin-bottom: 2rem;
   font-style: italic;
   font-size: 1.1rem;
@@ -259,43 +268,6 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 1rem;
-}
-
-.color-swatch {
-  height: 100px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 3px solid transparent;
-}
-
-.color-swatch:hover {
-  transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.color-swatch.active {
-  border: 3px solid #333;
-  transform: scale(1.1);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.color-swatch span {
-  font-family: monospace;
-  font-size: 0.9rem;
-}
-
-.color-swatch small {
-  font-size: 0.8rem;
-  margin-top: 0.25rem;
-  opacity: 0.9;
 }
 
 .font-samples {
@@ -309,17 +281,17 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 1.5rem 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.font-samples-header h2 {
-  color: #333;
-  font-size: 1.8rem;
-  margin: 0;
+.animation-controls {
+  display: flex;
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -328,25 +300,35 @@ export default {
     gap: 1rem;
     text-align: center;
   }
+  
+  .animation-controls {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .font-samples h2 {
   text-align: center;
-  color: #333;
+  color: #E0E0E0;
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
 .font-sample {
-  background: white;
+  background: radial-gradient(circle at 30% 20%, 
+    rgba(25, 25, 45, 1) 0%, 
+    rgba(15, 15, 25, 1) 40%, 
+    rgba(5, 15, 10, 1) 70%, 
+    rgba(0, 5, 0, 1) 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .font-name {
-  color: #666;
+  color: #E0E0E0;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
@@ -355,12 +337,19 @@ export default {
   font-size: 3rem;
   font-weight: 700;
   margin: 1rem 0;
-  transition: color 0.3s ease;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
 }
+
+
+
 
 .wavy-text {
   display: inline-block;
+}
+
+/* Enhanced text effects for all logo samples */
+.enhanced-text {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
 .wavy-text span {
@@ -430,8 +419,38 @@ export default {
   transform: scale(1.1);
 }
 
+/* Heartbeat Animation */
+.heartbeat {
+  animation: heartbeat 1.09s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.04);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.03);
+  }
+  70% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat:hover {
+  animation-duration: 0.9s;
+}
+
 .font-description {
-  color: #666;
+  color: #B0B0B0;
   font-style: italic;
   margin-top: 1rem;
 }
@@ -462,40 +481,38 @@ export default {
   font-family: 'Chewy', cursive;
 }
 
-.modak {
-  font-family: 'Modak', cursive;
-}
-
 .kalam {
   font-family: 'Kalam', cursive;
   font-weight: 700;
 }
 
 .action-section {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .action-section h2 {
-  color: #333;
+  color: #E0E0E0;
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
 
 .notes-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #333333 0%, #262626 100%);
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 2rem;
   text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .notes-card p {
   margin-bottom: 0.5rem;
-  color: #495057;
+  color: #C0C0C0;
   font-size: 1rem;
 }
 
