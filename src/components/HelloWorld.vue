@@ -1,61 +1,58 @@
 <template>
   <div class="hello-world">
     <div class="hero-section">
-      <h1 class="hero-title">Hello World! 🌍</h1>
-      <p class="hero-subtitle">Welcome to your Vue Static Site</p>
+      <h1 class="hero-title">Drama Girl 💃</h1>
+      <p class="hero-subtitle">Design Inspiration Toolkit</p>
+      <p class="hero-description">
+        A curated collection of visual tools and resources to inspire the look and feel 
+        of your Drama Girl game development journey
+      </p>
       
-      <div class="button-showcase">
-        <h2>Button Component Showcase</h2>
-        <div class="button-grid">
-          <CustomButton 
-            text="Primary Button" 
-            variant="primary" 
-            @click="showMessage('Primary button clicked!')"
-          />
-          
-          <CustomButton 
-            text="Secondary Button" 
-            variant="secondary" 
-            @click="showMessage('Secondary button clicked!')"
-          />
-          
-          <CustomButton 
-            text="Success Button" 
-            variant="success" 
-            @click="showMessage('Success button clicked!')"
-          />
-          
-          <CustomButton 
-            text="Drama Girl Fonts" 
-            variant="success" 
-            @click="navigateToFonts"
-          />
-        </div>
-      </div>
-      
-      <div v-if="message" class="message">
-        {{ message }}
+      <div class="quick-nav">
+        <CustomButton 
+          text="Explore Fonts" 
+          variant="primary" 
+          @click="navigateToFonts"
+        />
       </div>
     </div>
     
-    <div class="features">
-      <h2>Features of this Vue Site</h2>
-      <div class="feature-grid">
-        <div class="feature-card">
-          <h3>⚡ Fast</h3>
-          <p>Built with Vite for lightning-fast development and build times</p>
+    <div class="tools-section">
+      <h2>Inspiration Tools</h2>
+      <div class="tools-grid">
+        <div class="tool-card">
+          <h3>🎨 Color Palettes</h3>
+          <p>Explore dramatic color schemes perfect for creating mood and atmosphere in your game</p>
+          <div class="tool-preview">
+            <div class="color-dot" style="background: #FF1493;"></div>
+            <div class="color-dot" style="background: #C71585;"></div>
+            <div class="color-dot" style="background: #8B0A50;"></div>
+            <div class="color-dot" style="background: #4B0082;"></div>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>🎨 Modern</h3>
-          <p>Beautiful gradients and modern UI components</p>
+        
+        <div class="tool-card">
+          <h3>📝 Typography</h3>
+          <p>Discover fonts that capture the dramatic flair and personality of your game characters</p>
+          <div class="tool-preview">
+            <span class="font-sample">Drama Girl</span>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>📱 Responsive</h3>
-          <p>Works perfectly on all devices and screen sizes</p>
+        
+        <div class="tool-card">
+          <h3>🎭 UI Components</h3>
+          <p>Interactive elements and buttons designed with theatrical drama in mind</p>
+          <div class="tool-preview">
+            <div class="sample-button">Sample Button</div>
+          </div>
         </div>
-        <div class="feature-card">
-          <h3>🧩 Component-Based</h3>
-          <p>Reusable components for consistent design</p>
+        
+        <div class="tool-card">
+          <h3>✨ Visual Effects</h3>
+          <p>Gradients, shadows, and animations to bring your game interface to life</p>
+          <div class="tool-preview">
+            <div class="effect-sample"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -70,18 +67,7 @@ export default {
   components: {
     CustomButton
   },
-  data() {
-    return {
-      message: ''
-    }
-  },
   methods: {
-    showMessage(msg) {
-      this.message = msg
-      setTimeout(() => {
-        this.message = ''
-      }, 3000)
-    },
     navigateToFonts() {
       this.$router.push('/fonts')
     }
@@ -97,7 +83,7 @@ export default {
 
 .hero-section {
   text-align: center;
-  padding: 3rem 1rem;
+  padding: 4rem 2rem;
   background: linear-gradient(135deg, #FF1493 0%, #C71585 50%, #8B0A50 100%);
   color: white;
   border-radius: 15px;
@@ -106,98 +92,146 @@ export default {
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-size: 3.5rem;
   margin-bottom: 1rem;
   font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 2rem;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
   opacity: 0.9;
+  font-weight: 500;
 }
 
-.button-showcase {
+.hero-description {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.quick-nav {
   margin-top: 2rem;
 }
 
-.button-showcase h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.5rem;
-}
-
-.button-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  justify-items: center;
-  margin-bottom: 2rem;
-}
-
-.message {
-  background: rgba(255,255,255,0.2);
-  padding: 1rem;
-  border-radius: 8px;
-  margin-top: 1rem;
-  font-weight: 600;
-  animation: fadeIn 0.3s ease;
-}
-
-.features {
+.tools-section {
   text-align: center;
   background-color: #1a1a1a;
+  padding: 2rem 1rem;
 }
 
-.features h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+.tools-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
   color: #e0e0e0;
+  background: linear-gradient(45deg, #FF1493, #C71585);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.feature-grid {
+.tools-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin-top: 2rem;
 }
 
-.feature-card {
+.tool-card {
   background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-  transition: transform 0.3s ease;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 20, 147, 0.2);
+  text-align: left;
 }
 
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
+.tool-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(255, 20, 147, 0.3);
+  border-color: rgba(255, 20, 147, 0.5);
 }
 
-.feature-card h3 {
+.tool-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   color: #FF1493;
+  text-align: center;
 }
 
-.feature-card p {
+.tool-card p {
   color: #b0b0b0;
-  line-height: 1.6;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+.tool-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.color-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.font-sample {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #FF1493;
+  font-style: italic;
+}
+
+.sample-button {
+  background: linear-gradient(45deg, #FF1493, #C71585);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(255, 20, 147, 0.3);
+}
+
+.effect-sample {
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(90deg, #FF1493, #C71585, #8B0A50);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
 }
 
 @media (max-width: 768px) {
   .hero-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
   
-  .button-grid {
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+  
+  .tools-grid {
     grid-template-columns: 1fr;
+  }
+  
+  .tool-card {
+    padding: 2rem;
   }
 }
 </style>

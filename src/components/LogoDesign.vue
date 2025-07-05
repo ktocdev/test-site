@@ -5,32 +5,6 @@
       <p class="page-subtitle">Stunning Effects with Multiple Fonts in Magenta</p>
     </div>
 
-    <div class="effects-controls">
-      <h2>Effect Controls</h2>
-      <div class="control-buttons">
-        <CustomButton 
-          :text="starsEnabled ? 'Hide Stars' : 'Show Stars'"
-          :variant="starsEnabled ? 'danger' : 'success'"
-          @click="toggleStars"
-        />
-        <CustomButton 
-          :text="lightningEnabled ? 'Hide Lightning' : 'Show Lightning'"
-          :variant="lightningEnabled ? 'danger' : 'success'"
-          @click="toggleLightning"
-        />
-        <CustomButton 
-          :text="glowEnabled ? 'Disable Glow' : 'Enable Glow'"
-          :variant="glowEnabled ? 'danger' : 'success'"
-          @click="toggleGlow"
-        />
-        <CustomButton 
-          :text="animationEnabled ? 'Disable Animation' : 'Enable Animation'"
-          :variant="animationEnabled ? 'danger' : 'success'"
-          @click="toggleAnimation"
-        />
-      </div>
-    </div>
-
     <div class="font-controls">
       <h2>Font Family</h2>
       <div class="font-options">
@@ -47,6 +21,83 @@
       </div>
     </div>
 
+    <div class="color-palette">
+      <h2>Color Swatches</h2>
+      <p class="color-instruction">Click on any color to apply it to the logos below!</p>
+      <div class="color-grid">
+        <ColorSwatch
+          v-for="swatch in colorSwatches"
+          :key="swatch.value"
+          :color-value="swatch.value"
+          :color-name="swatch.name"
+          :gradient="swatch.gradient"
+          :is-active="selectedColor === swatch.value"
+          @select="selectColor"
+        />
+      </div>
+    </div>
+
+    <div class="effects-controls">
+      <h2>Effect Controls</h2>
+      <div class="control-buttons">
+        <CustomButton 
+          :text="starsEnabled ? 'Hide Stars' : 'Show Stars'"
+          :variant="starsEnabled ? 'danger' : 'success'"
+          @click="toggleStars"
+        />
+        <CustomButton 
+          :text="lightningEnabled ? 'Hide Lightning' : 'Show Lightning'"
+          :variant="lightningEnabled ? 'danger' : 'success'"
+          @click="toggleLightning"
+        />
+        <CustomButton 
+          :text="lightningAnimationEnabled ? 'Stop Lightning Animation' : 'Start Lightning Animation'"
+          :variant="lightningAnimationEnabled ? 'warning' : 'success'"
+          @click="toggleLightningAnimation"
+          :disabled="!lightningEnabled"
+        />
+        <CustomButton 
+          :text="glowEnabled ? 'Disable Glow' : 'Enable Glow'"
+          :variant="glowEnabled ? 'danger' : 'success'"
+          @click="toggleGlow"
+        />
+      </div>
+      
+      <!-- Compact Glow Color Controls -->
+      <div v-if="glowEnabled" class="glow-color-controls">
+        <h3 class="glow-title">Glow Settings</h3>
+        
+        <!-- Glow Color Selection -->
+        <div class="glow-section">
+          <label class="glow-label">Color</label>
+          <div class="glow-color-grid">
+            <div 
+              v-for="glowColor in glowColors" 
+              :key="glowColor.value"
+              class="glow-color-swatch"
+              :class="{ active: selectedGlowColor === glowColor.value }"
+              :style="{ backgroundColor: glowColor.value, boxShadow: `0 0 10px ${glowColor.value}` }"
+              @click="selectGlowColor(glowColor.value)"
+              :title="glowColor.name"
+            ></div>
+          </div>
+        </div>
+        
+        <!-- Glow Opacity Control -->
+        <div class="glow-section">
+          <label class="glow-label">Opacity: {{ Math.round(glowOpacity * 100) }}%</label>
+          <input 
+            type="range" 
+            min="0.1" 
+            max="1" 
+            step="0.1" 
+            v-model="glowOpacity"
+            class="glow-slider"
+          />
+        </div>
+      </div>
+    </div>
+
     <div class="logo-samples">
       <h2>Gradient Logo Showcase</h2>
       
@@ -55,14 +106,19 @@
         <h3 class="sample-title">Gradient Style with Starfield Background</h3>
         <div class="logo-container">
           <div class="logo-text gradient-logo" 
-               :class="[selectedFont, { 'animated': animationEnabled, 'glow-effect': glowEnabled }]">
+               :class="[selectedFont, { 'animated': true, 'glow-effect': glowEnabled }]"
+               :style="{ '--selected-gradient': selectedGradient, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
             Drama Girl
           </div>
           <div v-if="starsEnabled" class="stars-decoration starfield">
-            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">{{ getStarEmoji(n) }}</span>
+            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
           </div>
           <div v-if="lightningEnabled" class="lightning-decoration storm">
-            <span class="lightning storm-bolt" v-for="n in 4" :key="n" :style="getStormBoltStyle(n)">⚡</span>
+            <span class="lightning storm-bolt" 
+                  v-for="n in 4" 
+                  :key="n" 
+                  :class="{ 'lightning-animated': lightningAnimationEnabled }"
+                  :style="getStormBoltStyle(n)">⚡</span>
           </div>
         </div>
         <p class="sample-description">Beautiful gradient logo with starfield background and optional effects</p>
@@ -73,14 +129,19 @@
         <h3 class="sample-title">Animated Wavy Text with Starfield</h3>
         <div class="logo-container">
           <div class="logo-text wavy-text animated-text" 
-               :class="[selectedFont, { 'glow-effect': glowEnabled }]">
+               :class="[selectedFont, { 'glow-effect': glowEnabled }]"
+               :style="{ color: selectedColor, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
             <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
           </div>
           <div v-if="starsEnabled" class="stars-decoration starfield">
-            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">{{ getStarEmoji(n) }}</span>
+            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
           </div>
           <div v-if="lightningEnabled" class="lightning-decoration storm">
-            <span class="lightning storm-bolt" v-for="n in 4" :key="n" :style="getStormBoltStyle(n)">⚡</span>
+            <span class="lightning storm-bolt" 
+                  v-for="n in 4" 
+                  :key="n" 
+                  :class="{ 'lightning-animated': lightningAnimationEnabled }"
+                  :style="getStormBoltStyle(n)">⚡</span>
           </div>
         </div>
         <p class="sample-description">Wavy animated text with individual letter movement and starfield background</p>
@@ -117,19 +178,54 @@
 
 <script>
 import CustomButton from './CustomButton.vue'
+import ColorSwatch from './ColorSwatch.vue'
 
 export default {
   name: 'LogoDesign',
   components: {
-    CustomButton
+    CustomButton,
+    ColorSwatch
   },
   data() {
     return {
       starsEnabled: true,
       lightningEnabled: true,
+      lightningAnimationEnabled: true,
       glowEnabled: false,
-      animationEnabled: true,
       selectedFont: 'fredoka-one',
+      selectedColor: '#FF20B2', // Default to magenta
+      colorSwatches: [
+        {
+          value: '#FF1493',
+          name: 'Deep Pink',
+          gradient: 'linear-gradient(to bottom, #FF69B4, #C71585)'
+        },
+        {
+          value: '#FF69B4',
+          name: 'Hot Pink',
+          gradient: 'linear-gradient(to bottom, #FFB6C1, #FF1493)'
+        },
+        {
+          value: '#FF20B2',
+          name: 'Magenta',
+          gradient: 'linear-gradient(to bottom, #FF69B4, #B8005F)'
+        },
+        {
+          value: '#C71585',
+          name: 'Medium Violet Red',
+          gradient: 'linear-gradient(to bottom, #DA70D6, #8B0A50)'
+        },
+        {
+          value: '#DA70D6',
+          name: 'Orchid',
+          gradient: 'linear-gradient(to bottom, #DDA0DD, #9932CC)'
+        },
+        {
+          value: '#BA55D3',
+          name: 'Medium Orchid',
+          gradient: 'linear-gradient(to bottom, #D8BFD8, #8A2BE2)'
+        }
+      ],
       fontOptions: [
         {
           name: 'Fredoka One',
@@ -156,7 +252,22 @@ export default {
           value: 'kalam',
           description: 'Handwritten style'
         }
-      ]
+      ],
+      glowColors: [
+        { value: '#008B8B', name: 'Dark Turquoise' },
+        { value: '#2E8B57', name: 'Sea Green' },
+        { value: '#4682B4', name: 'Steel Blue' },
+        { value: '#483D8B', name: 'Dark Slate Blue' },
+        { value: '#8B4513', name: 'Saddle Brown' }
+      ],
+      selectedGlowColor: '#008B8B', // Default to dark turquoise for sophisticated contrast
+      glowOpacity: 0.7 // Default glow opacity (70%)
+    }
+  },
+  computed: {
+    selectedGradient() {
+      const swatch = this.colorSwatches.find(s => s.value === this.selectedColor)
+      return swatch ? swatch.gradient : this.colorSwatches[2].gradient // Default to magenta
     }
   },
   methods: {
@@ -166,18 +277,22 @@ export default {
     toggleLightning() {
       this.lightningEnabled = !this.lightningEnabled
     },
+    toggleLightningAnimation() {
+      this.lightningAnimationEnabled = !this.lightningAnimationEnabled
+    },
     toggleGlow() {
       this.glowEnabled = !this.glowEnabled
-    },
-    toggleAnimation() {
-      this.animationEnabled = !this.animationEnabled
     },
     selectFont(fontValue) {
       this.selectedFont = fontValue
     },
-    getStarEmoji(index) {
-      return '⭐' // Only use classic yellow star
+    selectColor(color) {
+      this.selectedColor = color
     },
+    selectGlowColor(color) {
+      this.selectedGlowColor = color
+    },
+
     getStarfieldStyle(index) {
       // Create a natural starfield pattern behind the logo with cooler tones
       const positions = [
@@ -219,11 +334,12 @@ export default {
       }
     },
     getStormBoltStyle(index) {
+      // Symmetrical arrangement around the logo: \ Drama Girl /
       const positions = [
-        { top: '10%', left: '30%' },
-        { top: '25%', right: '35%' },
-        { top: '75%', left: '25%' },
-        { top: '85%', right: '30%' }
+        { top: '15%', left: '20%' },    // Top-left
+        { top: '15%', right: '20%' },   // Top-right
+        { top: '75%', left: '30%' },    // Bottom-left
+        { top: '75%', right: '30%' }    // Bottom-right
       ]
       return positions[index - 1] || { top: '50%', left: '50%' }
     },
@@ -356,6 +472,35 @@ export default {
   font-style: italic;
 }
 
+.color-palette {
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+  margin-bottom: 3rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.color-palette h2 {
+  color: #e0e0e0;
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+
+.color-instruction {
+  color: #B0B0B0;
+  margin-bottom: 2rem;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
 .logo-samples {
   margin-bottom: 3rem;
 }
@@ -431,39 +576,55 @@ export default {
   font-weight: 700;
 }
 
-/* Logo Styles - keeping only gradient */
+/* Logo Styles - gradient with custom color */
 .gradient-logo {
-  background: linear-gradient(45deg, #FF20B2, #C71585, #DA70D6, #FF69B4);
-  background-size: 400% 400%;
+  background: var(--selected-gradient);
+  background-size: 600% 600%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
+  position: relative;
 }
 
 /* Animated text style - solid color for compatibility with animation */
 .animated-text {
-  color: #FF20B2; /* Solid magenta color */
-  text-shadow: 
-    2px 2px 4px rgba(0,0,0,0.8),
-    0 0 20px rgba(255, 20, 178, 0.3),
-    0 0 40px rgba(255, 20, 178, 0.1);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
 }
 
 /* Animation Effects - keeping only gradient */
 .animated.gradient-logo {
-  animation: gradientShift 4s ease-in-out infinite;
+  animation: gradientShift 6s ease-in-out infinite;
 }
 
 .glow-effect {
-  filter: drop-shadow(0 0 20px #FF20B2) drop-shadow(0 0 40px #FF20B2);
+  filter: 
+    drop-shadow(0 0 12px color-mix(in srgb, var(--glow-color, #FF20B2) calc(var(--glow-opacity, 0.7) * 100%), transparent)) 
+    drop-shadow(0 0 24px color-mix(in srgb, var(--glow-color, #FF20B2) calc(var(--glow-opacity, 0.7) * 60%), transparent)) 
+    drop-shadow(0 0 36px color-mix(in srgb, var(--glow-color, #FF20B2) calc(var(--glow-opacity, 0.7) * 40%), transparent));
 }
 
-/* Animations - keeping only gradient shift */
+.gradient-logo.glow-effect {
+  -webkit-text-stroke: 0.5px #4B0082;
+}
+
+/* Animations - more dynamic gradient shift for vibrant effect */
 @keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% { 
+    background-position: 0% 30%; 
+  }
+  25% { 
+    background-position: 70% 0%; 
+  }
+  50% { 
+    background-position: 100% 70%; 
+  }
+  75% { 
+    background-position: 30% 100%; 
+  }
+  100% { 
+    background-position: 0% 30%; 
+  }
 }
 
 /* Stars Decoration */
@@ -479,7 +640,6 @@ export default {
 .star {
   position: absolute;
   font-size: 1rem; /* Base size, will be overridden by inline styles */
-  animation: starTwinkle 2s ease-in-out infinite;
   filter: drop-shadow(0 0 8px currentColor);
   z-index: 3; /* Allow overlapping with text */
 }
@@ -489,11 +649,6 @@ export default {
   filter: drop-shadow(0 0 4px currentColor);
   z-index: 1; /* Behind the logo text */
   transform-origin: center;
-}
-
-@keyframes starTwinkle {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.2); }
 }
 
 @keyframes starfieldTwinkle {
@@ -595,6 +750,7 @@ export default {
   right: 0;
   bottom: 0;
   pointer-events: none;
+  z-index: 10;
 }
 
 .lightning {
@@ -602,23 +758,34 @@ export default {
   font-size: 2rem;
   color: #FFD700;
   filter: drop-shadow(0 0 15px #FFD700);
-  animation: lightningFlash 1.5s ease-in-out infinite;
+  animation: lightningFlash 4s ease-in-out infinite;
 }
 
 .storm .storm-bolt {
-  animation: stormStrike 2s ease-in-out infinite;
   color: #00BFFF;
   filter: drop-shadow(0 0 20px #00BFFF);
 }
 
+.storm .storm-bolt.lightning-animated {
+  animation: stormStrike 3.5s ease-in-out infinite;
+}
+
 @keyframes lightningFlash {
-  0%, 90%, 100% { opacity: 0.7; transform: scale(1); }
-  5%, 85% { opacity: 1; transform: scale(1.2); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  2% { opacity: 1; transform: scale(1.3); }
+  4% { opacity: 0.1; transform: scale(0.9); }
+  6% { opacity: 1; transform: scale(1.2); }
+  8% { opacity: 0.2; transform: scale(1); }
 }
 
 @keyframes stormStrike {
-  0%, 95%, 100% { opacity: 0; transform: scale(0.8); }
-  5%, 90% { opacity: 1; transform: scale(1.4); }
+  0%, 100% { opacity: 0; transform: scale(0.7); }
+  1% { opacity: 0.8; transform: scale(1.5); }
+  3% { opacity: 0; transform: scale(0.8); }
+  5% { opacity: 1; transform: scale(1.4); }
+  7% { opacity: 0; transform: scale(0.9); }
+  9% { opacity: 0.6; transform: scale(1.2); }
+  11% { opacity: 0; transform: scale(0.7); }
 }
 
 .sample-description {
@@ -665,40 +832,151 @@ export default {
   flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .page-title {
-    font-size: 2rem;
-  }
-  
-  .logo-text {
-    font-size: 2.5rem;
-  }
-  
-  .control-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .font-options {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.8rem;
-  }
-  
-  .font-option {
-    padding: 1rem;
-  }
-  
-  .font-preview {
-    font-size: 1.2rem;
-  }
-  
-  .star, .lightning {
-    font-size: 1.2rem;
-  }
-  
-  .action-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
+/* Glow Color Controls */
+.glow-color-controls {
+  background: rgba(30, 30, 30, 0.9);
+  border: 2px solid #FF20B2;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 10px 0;
+  backdrop-filter: blur(10px);
 }
+
+.glow-title {
+  color: #FF20B2;
+  font-size: 1.1rem;
+  margin: 0 0 15px 0;
+  text-align: center;
+  font-weight: 600;
+}
+
+.glow-section {
+  margin-bottom: 15px;
+}
+
+.glow-section:last-child {
+  margin-bottom: 0;
+}
+
+.glow-label {
+  display: block;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.glow-color-grid {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.glow-color-swatch {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.glow-color-swatch:hover {
+  transform: scale(1.1);
+  border-color: #fff;
+}
+
+.glow-color-swatch.active {
+  border-color: #fff;
+  transform: scale(1.15);
+}
+
+.glow-color-swatch.active::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.8rem;
+  text-shadow: 0 0 3px rgba(0,0,0,0.8);
+}
+
+.glow-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #333, #FF20B2);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.glow-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #FF20B2;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+}
+
+.glow-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 8px rgba(255, 32, 178, 0.4);
+}
+
+.glow-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #FF20B2;
+  border: 2px solid #fff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2rem;
+    }
+    
+    .logo-text {
+      font-size: 2.5rem;
+    }
+    
+    .control-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .font-options {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+    
+    .font-option {
+      padding: 1rem;
+    }
+    
+    .font-preview {
+      font-size: 1.2rem;
+    }
+    
+    .color-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .action-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
 </style>

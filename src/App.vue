@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar">
-      <h1>Vue Static Site</h1>
+      <h1>Drama Girl Design Inspiration</h1>
       <div class="nav-links">
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/fonts" class="nav-link">Font Showcase</router-link>
