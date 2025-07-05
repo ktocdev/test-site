@@ -26,12 +26,6 @@
           />
           
           <CustomButton 
-            text="Go to Second Page" 
-            variant="danger" 
-            @click="navigateToSecondPage"
-          />
-          
-          <CustomButton 
             text="Drama Girl Fonts" 
             variant="success" 
             @click="navigateToFonts"
@@ -88,9 +82,6 @@ export default {
         this.message = ''
       }, 3000)
     },
-    navigateToSecondPage() {
-      this.$router.push('/second')
-    },
     navigateToFonts() {
       this.$router.push('/fonts')
     }
@@ -101,16 +92,17 @@ export default {
 <style scoped>
 .hello-world {
   max-width: 100%;
+  background-color: #1a1a1a;
 }
 
 .hero-section {
   text-align: center;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #FF1493 0%, #C71585 50%, #8B0A50 100%);
   color: white;
   border-radius: 15px;
   margin-bottom: 3rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
 }
 
 .hero-title {
@@ -153,12 +145,13 @@ export default {
 
 .features {
   text-align: center;
+  background-color: #1a1a1a;
 }
 
 .features h2 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #333;
+  color: #e0e0e0;
 }
 
 .feature-grid {
@@ -169,25 +162,27 @@ export default {
 }
 
 .feature-card {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .feature-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
 }
 
 .feature-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #667eea;
+  color: #FF1493;
 }
 
 .feature-card p {
-  color: #666;
+  color: #b0b0b0;
   line-height: 1.6;
 }
 

@@ -57,16 +57,23 @@
     <div class="font-samples">
       <div class="font-samples-header">
         <h2>Font Samples</h2>
-        <CustomButton 
-          :text="animationEnabled ? 'Disable Animation' : 'Enable Animation'"
-          :variant="animationEnabled ? 'danger' : 'success'"
-          @click="toggleAnimation"
-        />
+        <div class="animation-controls">
+          <CustomButton 
+            :text="animationEnabled ? 'Disable Animation' : 'Enable Animation'"
+            :variant="animationEnabled ? 'danger' : 'success'"
+            @click="toggleAnimation"
+          />
+          <CustomButton 
+            :text="heartbeatEnabled ? 'Disable Heartbeat' : 'Enable Heartbeat'"
+            :variant="heartbeatEnabled ? 'danger' : 'success'"
+            @click="toggleHeartbeat"
+          />
+        </div>
       </div>
       
       <div class="font-sample">
         <h3 class="font-name">Fredoka One (Google Fonts)</h3>
-        <div class="logo-sample fredoka-one" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample fredoka-one" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Chunky, rounded, and super playful - perfect for a teen game!</p>
@@ -74,7 +81,7 @@
 
       <div class="font-sample">
         <h3 class="font-name">Righteous (Google Fonts)</h3>
-        <div class="logo-sample righteous" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample righteous" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Bold and energetic with a modern street style vibe.</p>
@@ -82,7 +89,7 @@
 
       <div class="font-sample">
         <h3 class="font-name">Comfortaa (Google Fonts)</h3>
-        <div class="logo-sample comfortaa" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample comfortaa" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Soft, rounded, and friendly - great for approachable design.</p>
@@ -90,7 +97,7 @@
 
       <div class="font-sample">
         <h3 class="font-name">Lalezar (Google Fonts)</h3>
-        <div class="logo-sample lalezar" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample lalezar" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Thick and impactful with a unique character.</p>
@@ -98,7 +105,7 @@
 
       <div class="font-sample">
         <h3 class="font-name">Bungee (Google Fonts)</h3>
-        <div class="logo-sample bungee" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample bungee" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Urban and bold with great visual impact.</p>
@@ -106,23 +113,15 @@
 
       <div class="font-sample">
         <h3 class="font-name">Chewy (Google Fonts)</h3>
-        <div class="logo-sample chewy" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample chewy" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Fun and bouncy with a hand-drawn feel.</p>
       </div>
 
       <div class="font-sample">
-        <h3 class="font-name">Modak (Google Fonts)</h3>
-        <div class="logo-sample modak" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
-          <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
-        </div>
-        <p class="font-description">Extra chunky and decorative for maximum impact.</p>
-      </div>
-
-      <div class="font-sample">
         <h3 class="font-name">Kalam (Google Fonts)</h3>
-        <div class="logo-sample kalam" :class="{ 'wavy-text': animationEnabled }" :style="{ color: selectedColor }">
+        <div class="logo-sample kalam" :class="{ 'wavy-text': animationEnabled, 'heartbeat': heartbeatEnabled }" :style="{ color: selectedColor }">
           <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
         </div>
         <p class="font-description">Handwritten style that's casual and approachable.</p>
@@ -146,9 +145,9 @@
         />
         
         <CustomButton 
-          text="View Second Page" 
-          variant="secondary" 
-          @click="goToSecond"
+          text="Logo Design Studio" 
+          variant="success" 
+          @click="goToLogo"
         />
       </div>
     </div>
@@ -166,7 +165,8 @@ export default {
   data() {
     return {
       selectedColor: '#FF1493', // Default to Deep Pink
-      animationEnabled: true // Animation starts enabled
+      animationEnabled: true, // Animation starts enabled
+      heartbeatEnabled: false // Heartbeat animation starts disabled
     }
   },
   computed: {
@@ -189,11 +189,14 @@ export default {
     toggleAnimation() {
       this.animationEnabled = !this.animationEnabled
     },
+    toggleHeartbeat() {
+      this.heartbeatEnabled = !this.heartbeatEnabled
+    },
     goHome() {
       this.$router.push('/')
     },
-    goToSecond() {
-      this.$router.push('/second')
+    goToLogo() {
+      this.$router.push('/logo')
     }
   }
 }
@@ -201,10 +204,13 @@ export default {
 
 <style scoped>
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Comfortaa:wght@700&family=Lalezar&family=Bungee&family=Chewy&family=Modak&family=Kalam:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Righteous&family=Comfortaa:wght@700&family=Lalezar&family=Bungee&family=Chewy&family=Kalam:wght@700&display=swap');
 
 .font-showcase {
   max-width: 100%;
+  background: #1a1a1a;
+  min-height: 100vh;
+  padding: 2rem;
 }
 
 .page-header {
@@ -233,23 +239,24 @@ export default {
 }
 
 .color-palette {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   margin-bottom: 3rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .color-palette h2 {
   text-align: center;
-  color: #333;
+  color: #E0E0E0;
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
 
 .color-instruction {
   text-align: center;
-  color: #666;
+  color: #B0B0B0;
   margin-bottom: 2rem;
   font-style: italic;
   font-size: 1.1rem;
@@ -309,17 +316,17 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 1.5rem 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.font-samples-header h2 {
-  color: #333;
-  font-size: 1.8rem;
-  margin: 0;
+.animation-controls {
+  display: flex;
+  gap: 1rem;
 }
 
 @media (max-width: 768px) {
@@ -328,25 +335,35 @@ export default {
     gap: 1rem;
     text-align: center;
   }
+  
+  .animation-controls {
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 .font-samples h2 {
   text-align: center;
-  color: #333;
+  color: #E0E0E0;
   font-size: 1.8rem;
   margin-bottom: 1rem;
 }
 
 .font-sample {
-  background: white;
+  background: radial-gradient(circle at 30% 20%, 
+    rgba(25, 25, 45, 1) 0%, 
+    rgba(15, 15, 25, 1) 40%, 
+    rgba(5, 15, 10, 1) 70%, 
+    rgba(0, 5, 0, 1) 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .font-name {
-  color: #666;
+  color: #E0E0E0;
   margin-bottom: 1rem;
   font-size: 1.1rem;
 }
@@ -356,7 +373,10 @@ export default {
   font-weight: 700;
   margin: 1rem 0;
   transition: color 0.3s ease;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  text-shadow: 
+    2px 2px 4px rgba(0,0,0,0.8),
+    0 0 20px rgba(255, 20, 178, 0.3),
+    0 0 40px rgba(255, 20, 178, 0.1);
 }
 
 .wavy-text {
@@ -430,8 +450,38 @@ export default {
   transform: scale(1.1);
 }
 
+/* Heartbeat Animation */
+.heartbeat {
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  80% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.heartbeat:hover {
+  animation-duration: 1s;
+}
+
 .font-description {
-  color: #666;
+  color: #B0B0B0;
   font-style: italic;
   margin-top: 1rem;
 }
@@ -462,40 +512,38 @@ export default {
   font-family: 'Chewy', cursive;
 }
 
-.modak {
-  font-family: 'Modak', cursive;
-}
-
 .kalam {
   font-family: 'Kalam', cursive;
   font-weight: 700;
 }
 
 .action-section {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .action-section h2 {
-  color: #333;
+  color: #E0E0E0;
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
 
 .notes-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #333333 0%, #262626 100%);
   padding: 1.5rem;
   border-radius: 10px;
   margin-bottom: 2rem;
   text-align: left;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .notes-card p {
   margin-bottom: 0.5rem;
-  color: #495057;
+  color: #C0C0C0;
   font-size: 1rem;
 }
 
