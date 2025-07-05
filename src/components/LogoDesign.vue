@@ -101,50 +101,106 @@
     <div class="logo-samples">
       <h2>Gradient Logo Showcase</h2>
       
-      <!-- Gradient Logo with starfield -->
-      <div class="logo-sample-card">
-        <h3 class="sample-title">Gradient Style with Starfield Background</h3>
-        <div class="logo-container">
-          <div class="logo-text gradient-logo" 
-               :class="[selectedFont, { 'animated': true, 'glow-effect': glowEnabled }]"
-               :style="{ '--selected-gradient': selectedGradient, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
-            Drama Girl
-          </div>
-          <div v-if="starsEnabled" class="stars-decoration starfield">
-            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
-          </div>
-          <div v-if="lightningEnabled" class="lightning-decoration storm">
-            <span class="lightning storm-bolt" 
-                  v-for="n in 4" 
-                  :key="n" 
-                  :class="{ 'lightning-animated': lightningAnimationEnabled }"
-                  :style="getStormBoltStyle(n)">⚡</span>
-          </div>
-        </div>
-        <p class="sample-description">Beautiful gradient logo with starfield background and optional effects</p>
+      <!-- Tab Navigation -->
+      <div class="tab-navigation">
+        <button 
+          class="tab-button" 
+          :class="{ active: activeTab === 'starfield' }"
+          @click="activeTab = 'starfield'"
+        >
+          ⭐ Starfield Effects
+        </button>
+        <button 
+          class="tab-button" 
+          :class="{ active: activeTab === 'sparkly' }"
+          @click="activeTab = 'sparkly'"
+        >
+          ✨ Sparkly Effects
+        </button>
       </div>
 
-      <!-- Animated Wavy Logo with starfield -->
-      <div class="logo-sample-card">
-        <h3 class="sample-title">Animated Wavy Text with Starfield</h3>
-        <div class="logo-container">
-          <div class="logo-text wavy-text animated-text" 
-               :class="[selectedFont, { 'glow-effect': glowEnabled }]"
-               :style="{ color: selectedColor, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
-            <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
+      <!-- Starfield Tab Content -->
+      <div v-show="activeTab === 'starfield'" class="tab-content">
+        <!-- Gradient Logo with starfield -->
+        <div class="logo-sample-card">
+          <h3 class="sample-title">Gradient Style with Starfield Background</h3>
+          <div class="logo-container">
+            <div class="logo-text gradient-logo" 
+                 :class="[selectedFont, { 'animated': true, 'glow-effect': glowEnabled }]"
+                 :style="{ '--selected-gradient': selectedGradient, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
+              Drama Girl
+            </div>
+            <div v-if="starsEnabled" class="stars-decoration starfield">
+              <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
+            </div>
+            <div v-if="lightningEnabled" class="lightning-decoration storm">
+              <span class="lightning storm-bolt" 
+                    v-for="n in 4" 
+                    :key="n" 
+                    :class="{ 'lightning-animated': lightningAnimationEnabled }"
+                    :style="getStormBoltStyle(n)">⚡</span>
+            </div>
           </div>
-          <div v-if="starsEnabled" class="stars-decoration starfield">
-            <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
-          </div>
-          <div v-if="lightningEnabled" class="lightning-decoration storm">
-            <span class="lightning storm-bolt" 
-                  v-for="n in 4" 
-                  :key="n" 
-                  :class="{ 'lightning-animated': lightningAnimationEnabled }"
-                  :style="getStormBoltStyle(n)">⚡</span>
-          </div>
+          <p class="sample-description">Beautiful gradient logo with starfield background and optional effects</p>
         </div>
-        <p class="sample-description">Wavy animated text with individual letter movement and starfield background</p>
+
+        <!-- Animated Wavy Logo with starfield -->
+        <div class="logo-sample-card">
+          <h3 class="sample-title">Animated Wavy Text with Starfield</h3>
+          <div class="logo-container">
+            <div class="logo-text wavy-text animated-text" 
+                 :class="[selectedFont, { 'glow-effect': glowEnabled }]"
+                 :style="{ color: selectedColor, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
+              <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
+            </div>
+            <div v-if="starsEnabled" class="stars-decoration starfield">
+              <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
+            </div>
+            <div v-if="lightningEnabled" class="lightning-decoration storm">
+              <span class="lightning storm-bolt" 
+                    v-for="n in 4" 
+                    :key="n" 
+                    :class="{ 'lightning-animated': lightningAnimationEnabled }"
+                    :style="getStormBoltStyle(n)">⚡</span>
+            </div>
+          </div>
+          <p class="sample-description">Wavy animated text with individual letter movement and starfield background</p>
+        </div>
+      </div>
+
+      <!-- Sparkly Tab Content -->
+      <div v-show="activeTab === 'sparkly'" class="tab-content">
+        <!-- Sparkly Text Logo -->
+        <div class="logo-sample-card">
+          <h3 class="sample-title">Sparkly Gem Text Effect with Gradient</h3>
+          <div class="logo-container">
+            <div class="logo-text sparkly-text gradient-logo" 
+                 :class="[selectedFont, { 'animated': true, 'glow-effect': glowEnabled }]"
+                 :style="{ '--selected-gradient': selectedGradient, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
+              <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
+            </div>
+            <div class="sparkles-decoration">
+              <span class="sparkle" v-for="n in 12" :key="n" :style="getSparkleStyle(n)">✨</span>
+            </div>
+          </div>
+          <p class="sample-description">Luxurious sparkling text with gem-like shimmer effects and animated gradient</p>
+        </div>
+
+        <!-- Sparkly Wavy Text Logo -->
+        <div class="logo-sample-card">
+          <h3 class="sample-title">Sparkly Wavy Text Effect</h3>
+          <div class="logo-container">
+            <div class="logo-text sparkly-text wavy-text animated-text" 
+                 :class="[selectedFont, { 'glow-effect': glowEnabled }]"
+                 :style="{ color: selectedColor, '--glow-color': selectedGlowColor, '--glow-opacity': glowOpacity }">
+              <span>D</span><span>r</span><span>a</span><span>m</span><span>a</span><span>&nbsp;</span><span>G</span><span>i</span><span>r</span><span>l</span>
+            </div>
+            <div class="sparkles-decoration">
+              <span class="sparkle" v-for="n in 12" :key="n" :style="getSparkleStyle(n)">✨</span>
+            </div>
+          </div>
+          <p class="sample-description">Combination of wavy letter animation with sparkling effects for maximum drama</p>
+        </div>
       </div>
     </div>
 
@@ -194,6 +250,7 @@ export default {
       glowEnabled: false,
       selectedFont: 'fredoka-one',
       selectedColor: '#FF20B2', // Default to magenta
+      activeTab: 'starfield', // Default to starfield tab
       colorSwatches: [
         {
           value: '#FF1493',
@@ -342,6 +399,32 @@ export default {
         { top: '75%', right: '30%' }    // Bottom-right
       ]
       return positions[index - 1] || { top: '50%', left: '50%' }
+    },
+    getSparkleStyle(index) {
+      // Create sparkle positions around and on the text for gemstone effect
+      const positions = [
+        // Sparkles around the text
+        { top: '10%', left: '20%', delay: '0s', color: '#FFD700' },      // Gold
+        { top: '15%', left: '75%', delay: '0.8s', color: '#E6E6FA' },    // Lavender
+        { top: '25%', left: '10%', delay: '1.2s', color: '#FFFACD' },    // Lemon chiffon
+        { top: '35%', left: '85%', delay: '0.4s', color: '#F0F8FF' },    // Alice blue
+        { top: '45%', left: '15%', delay: '1.6s', color: '#FFE4E1' },    // Misty rose
+        { top: '55%', left: '80%', delay: '2.0s', color: '#E0FFFF' },    // Light cyan
+        { top: '65%', left: '25%', delay: '0.6s', color: '#FAFAD2' },    // Light goldenrod
+        { top: '75%', left: '70%', delay: '1.4s', color: '#F5FFFA' },    // Mint cream
+        { top: '85%', left: '45%', delay: '1.8s', color: '#FFF0F5' },    // Lavender blush
+        // Closer sparkles on text
+        { top: '40%', left: '40%', delay: '0.2s', color: '#FFFFFF' },     // White
+        { top: '50%', left: '55%', delay: '1.0s', color: '#F8F8FF' },     // Ghost white
+        { top: '60%', left: '35%', delay: '1.3s', color: '#FFFAFA' }      // Snow
+      ]
+      const pos = positions[index - 1] || { top: '50%', left: '50%', delay: '0s', color: '#FFFFFF' }
+      return {
+        top: pos.top,
+        left: pos.left,
+        '--sparkle-delay': pos.delay,
+        color: pos.color
+      }
     },
     goToFontShowcase() {
       this.$router.push('/fonts')
@@ -512,6 +595,50 @@ export default {
   margin-bottom: 2rem;
 }
 
+/* Tab Navigation */
+.tab-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tab-button {
+  background: linear-gradient(135deg, #333333 0%, #262626 100%);
+  color: #e0e0e0;
+  border: 2px solid transparent;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+.tab-button:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 20, 178, 0.3);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+.tab-button.active {
+  background: linear-gradient(135deg, #FF20B2 0%, #C71585 100%);
+  color: white;
+  border-color: #FF20B2;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255, 20, 178, 0.4);
+}
+
+.tab-content {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .logo-sample-card {
   background: radial-gradient(circle at 30% 20%, 
     rgba(25, 25, 45, 1) 0%, 
@@ -542,7 +669,7 @@ export default {
 }
 
 .logo-text {
-  font-size: 4rem;
+  font-size: 5.5rem;
   font-weight: 700;
   transition: all 0.3s ease;
   position: relative;
@@ -740,6 +867,70 @@ export default {
 .wavy-text:hover span {
   animation-duration: 1.2s;
   transform: scale(1.1);
+}
+
+/* Sparkly Text Effect */
+.sparkly-text {
+  position: relative;
+  overflow: visible;
+}
+
+.sparkles-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.sparkle {
+  position: absolute;
+  font-size: 0.8rem;
+  animation: sparkleShimmer 2.5s ease-in-out infinite;
+  animation-delay: var(--sparkle-delay, 0s);
+  filter: drop-shadow(0 0 6px currentColor);
+  transform-origin: center;
+}
+
+@keyframes sparkleShimmer {
+  0%, 100% { 
+    opacity: 0.3; 
+    transform: scale(0.8) rotate(0deg); 
+  }
+  10% { 
+    opacity: 0.9; 
+    transform: scale(1.2) rotate(45deg); 
+  }
+  20% { 
+    opacity: 0.4; 
+    transform: scale(0.9) rotate(90deg); 
+  }
+  30% { 
+    opacity: 1; 
+    transform: scale(1.3) rotate(135deg); 
+  }
+  40% { 
+    opacity: 0.2; 
+    transform: scale(0.7) rotate(180deg); 
+  }
+  50% { 
+    opacity: 0.8; 
+    transform: scale(1.1) rotate(225deg); 
+  }
+  60% { 
+    opacity: 0.5; 
+    transform: scale(1.0) rotate(270deg); 
+  }
+  70% { 
+    opacity: 0.9; 
+    transform: scale(1.25) rotate(315deg); 
+  }
+  80% { 
+    opacity: 0.3; 
+    transform: scale(0.85) rotate(360deg); 
+  }
 }
 
 /* Lightning Decoration */
@@ -949,12 +1140,25 @@ export default {
     }
     
     .logo-text {
-      font-size: 2.5rem;
+      font-size: 3rem;
     }
     
     .control-buttons {
       flex-direction: column;
       align-items: center;
+    }
+    
+    .tab-navigation {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .tab-button {
+      width: 100%;
+      max-width: 250px;
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem;
     }
     
     .font-options {
