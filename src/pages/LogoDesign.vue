@@ -1,33 +1,3 @@
-<!--
-  LogoDesign.vue - Logo Design Studio Component
-
-  A comprehensive logo design interface that allows users to create stunning text effects
-  with multiple fonts, colors, gradients, and special effects in a magenta/violet theme.
-
-  FEATURES:
-  - Design Settings: Font selection, color/gradient picker, showcase style selector
-  - Special Effects: Stars, lightning, glow, and stroke effects with inline settings
-  - Live Preview: Two showcase modes (Starfield and Sparkly) with animated previews
-  - Responsive Design: Mobile-friendly layout with flexible controls
-
-  STRUCTURE:
-  1. Page Header: Title and subtitle with gradient background
-  2. Design Controls: Main control panel with unified settings
-     - Design Settings: Font, color, showcase style dropdowns
-     - Special Effects: Four effect toggles in a single row with inline settings
-  3. Showcase Area: Live preview with two modes (starfield/sparkly)
-  4. Action Section: Design tips and navigation buttons
-
-  EFFECTS:
-  - Show Stars: Animated starfield background with cool-toned stars
-  - Show Lightning: Storm bolt effects positioned around the logo
-  - Enable Glow: Customizable glow effect with 13 color options and opacity control
-  - Enable Stroke: Text stroke effect with 13 color options and width control
-
-  FONTS: 5 Google Fonts (Fredoka One, Righteous, Comfortaa, Chewy, Kalam)
-  COLORS: 8 magenta/violet themed gradients
-  SHOWCASE: 2 modes (Starfield Effects, Sparkly Effects)
--->
 <template>
   <div class="logo-design">
     <div class="page-header">

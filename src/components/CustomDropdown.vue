@@ -171,7 +171,6 @@ export default {
 
 .dropdown-item:hover {
   background: rgba(255, 20, 178, 0.1);
-  transform: translateX(5px);
 }
 
 .dropdown-item.is-active {
