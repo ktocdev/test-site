@@ -6,6 +6,7 @@
         <router-link to="/" class="nav-link">Home</router-link>
         <router-link to="/fonts" class="nav-link">Font Showcase</router-link>
         <router-link to="/logo" class="nav-link">Logo Design</router-link>
+        <router-link to="/stars" class="nav-link">Stars</router-link>
       </div>
     </nav>
 
@@ -17,7 +18,29 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    updatePageTitle() {
+      const routeTitles = {
+        '/': 'Home',
+        '/fonts': 'Font Showcase',
+        '/logo': 'Logo Design',
+        '/stars': 'Stars'
+      }
+      
+      const currentPath = this.$route.path
+      const pageTitle = routeTitles[currentPath] || 'Page'
+      document.title = `${pageTitle} - Drama Girl Design Inspiration`
+    }
+  },
+  mounted() {
+    this.updatePageTitle()
+  },
+  watch: {
+    '$route'() {
+      this.updatePageTitle()
+    }
+  }
 }
 </script>
 

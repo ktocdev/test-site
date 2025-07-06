@@ -65,10 +65,19 @@ npm run preview
 src/
 ├── App.vue              # Main application component
 ├── main.js              # Application entry point
-└── components/
+├── pages/               # Page components
+│   ├── Home.vue         # Home page component
+│   ├── FontShowcase.vue # Font showcase page
+│   ├── LogoDesign.vue   # Logo design page
+│   └── Stars.vue        # Stars page
+└── components/          # Reusable components
     ├── CustomButton.vue # Reusable button component
-    ├── HelloWorld.vue   # Home page component
-    └── SecondPage.vue   # Second page component
+    ├── CustomCheckbox.vue
+    ├── CustomDropdown.vue
+    ├── ColorDropdown.vue
+    ├── ColorSwatch.vue
+    ├── GlowDropdown.vue
+    └── StrokeDropdown.vue
 ```
 
 ## Components

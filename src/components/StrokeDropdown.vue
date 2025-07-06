@@ -1,6 +1,6 @@
 <template>
   <div class="stroke-dropdown">
-    <button class="dropdown-button" @click="toggleDropdown" :class="{ 'active': isOpen }">
+    <button class="dropdown-button" @click="toggleDropdown" :class="{ 'active': isOpen, 'disabled': disabled }" :disabled="disabled">
       <span>Text Stroke Settings</span>
       <span class="dropdown-arrow" :class="{ 'rotate': isOpen }">▼</span>
     </button>
@@ -50,6 +50,10 @@ export default {
     strokeWidth: {
       type: Number,
       default: 0.1
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -74,7 +78,9 @@ export default {
   },
   methods: {
     toggleDropdown() {
-      this.isOpen = !this.isOpen
+      if (!this.disabled) {
+        this.isOpen = !this.isOpen
+      }
     },
     selectColor(color) {
       this.$emit('update:selectedColor', color)
@@ -128,6 +134,20 @@ export default {
   border-color: #00FFFF;
   background: linear-gradient(135deg, #00FFFF 0%, #008B8B 100%);
   color: #000;
+}
+
+.dropdown-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-color: #555;
+  color: #666;
+}
+
+.dropdown-button.disabled:hover {
+  transform: none;
+  border-color: #555;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
 }
 
 .dropdown-arrow {

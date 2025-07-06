@@ -4,7 +4,6 @@
       <span class="dropdown-label">{{ label }}</span>
       <div class="dropdown-value">
         <div class="color-preview" :style="{ background: selectedGradient }"></div>
-        <span class="color-name">{{ selectedText }}</span>
       </div>
       <span class="dropdown-arrow" :class="{ 'rotated': isOpen }">▼</span>
     </div>
@@ -127,7 +126,7 @@ export default {
 .dropdown-value {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  justify-content: center;
 }
 
 .color-preview {
@@ -191,7 +190,6 @@ export default {
 
 .dropdown-item:hover {
   background: rgba(255, 20, 178, 0.1);
-  transform: translateX(5px);
 }
 
 .dropdown-item.is-active {
