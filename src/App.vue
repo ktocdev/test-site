@@ -1,10 +1,11 @@
 <template>
   <div id="app">
     <nav class="navbar">
-      <h1>Vue Static Site</h1>
+      <h1>Drama Girl Design Inspiration</h1>
       <div class="nav-links">
         <router-link to="/" class="nav-link">Home</router-link>
-        <router-link to="/second" class="nav-link">Second Page</router-link>
+        <router-link to="/fonts" class="nav-link">Font Showcase</router-link>
+        <router-link to="/logo" class="nav-link">Logo Design</router-link>
       </div>
     </nav>
     
@@ -29,21 +30,22 @@ export default {
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #f5f5f5;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
 }
 
 #app {
   min-height: 100vh;
+  background-color: #1a1a1a;
 }
 
 .navbar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #FF1493 0%, #C71585 50%, #8B0A50 100%);
   color: white;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 .navbar h1 {
@@ -66,6 +68,8 @@ body {
 
 .nav-link:hover {
   background-color: rgba(255,255,255,0.2);
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
 }
 
 .nav-link.router-link-active {
@@ -77,5 +81,6 @@ body {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #1a1a1a;
 }
 </style>

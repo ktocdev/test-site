@@ -47,6 +47,12 @@
             variant="primary" 
             @click="goHome"
           />
+          
+          <CustomButton 
+            text="Drama Girl Fonts" 
+            variant="success" 
+            @click="goToFonts"
+          />
         </div>
         
         <div v-if="showToggleMessage" class="toggle-message">
@@ -79,6 +85,9 @@ export default {
     },
     goHome() {
       this.$router.push('/')
+    },
+    goToFonts() {
+      this.$router.push('/fonts')
     }
   }
 }
@@ -87,16 +96,17 @@ export default {
 <style scoped>
 .second-page {
   max-width: 100%;
+  background-color: #1a1a1a;
 }
 
 .page-header {
   text-align: center;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  background: linear-gradient(135deg, #FF1493 0%, #C71585 50%, #8B0A50 100%);
   color: white;
   border-radius: 15px;
   margin-bottom: 3rem;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(255, 20, 147, 0.3);
 }
 
 .page-title {
@@ -120,21 +130,22 @@ export default {
 }
 
 .info-card {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .info-card h2 {
-  color: #f5576c;
+  color: #FF1493;
   margin-bottom: 1rem;
   font-size: 1.8rem;
 }
 
 .info-card p {
-  color: #666;
+  color: #b0b0b0;
   line-height: 1.6;
   margin-bottom: 1rem;
 }
@@ -146,40 +157,43 @@ export default {
 }
 
 .stat-card {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   text-align: center;
   transition: transform 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .stat-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 20, 147, 0.2);
 }
 
 .stat-number {
   font-size: 3rem;
   font-weight: 700;
-  color: #f5576c;
+  color: #FF1493;
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
-  color: #666;
+  color: #b0b0b0;
   font-weight: 600;
 }
 
 .action-section {
-  background: white;
+  background: linear-gradient(145deg, #2d2d2d 0%, #1f1f1f 100%);
   padding: 2rem;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.4);
   text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .action-section h2 {
-  color: #333;
+  color: #e0e0e0;
   margin-bottom: 2rem;
   font-size: 1.8rem;
 }
@@ -193,12 +207,13 @@ export default {
 }
 
 .toggle-message {
-  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  background: linear-gradient(135deg, #FF1493 0%, #C71585 100%);
   color: white;
   padding: 1rem;
   border-radius: 10px;
   margin-top: 1rem;
   animation: slideIn 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 20, 147, 0.3);
 }
 
 @keyframes slideIn {
