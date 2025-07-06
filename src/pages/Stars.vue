@@ -2,8 +2,7 @@
   <div class="stars-page">
     <!-- Page Header -->
     <div class="page-header">
-      <h1 class="page-title">Starry Night Sky</h1>
-      <p class="page-subtitle">Experience the beauty of a midnight sky filled with twinkling stars</p>
+      <h1 class="page-title">Logo Creation</h1>
     </div>
 
     <!-- Logo Control Panel -->
@@ -56,7 +55,7 @@
 
           <div class="control-group">
             <CustomDropdown
-              label="Select Showcase Style"
+              label="Select Effect"
               :options="showcaseOptions"
               :selectedValue="activeTab"
               :selectedText="selectedShowcaseName"
@@ -127,12 +126,20 @@
       
       <!-- Starfield Decoration (when starfield tab is active) -->
       <div v-if="activeTab === 'starfield'" class="stars-decoration starfield">
-        <span class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">⭐</span>
+        <div class="star starfield-star" v-for="n in 18" :key="n" :style="getStarfieldStyle(n)">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
       </div>
       
       <!-- Sparkles Decoration (when sparkly tab is active) -->
       <div v-if="activeTab === 'sparkly'" class="sparkles-decoration">
-        <span class="sparkle" v-for="n in 12" :key="n" :style="getSparkleStyle(n)">✨</span>
+        <div class="sparkle" v-for="n in 12" :key="n" :style="getSparkleStyle(n)">
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/>
+          </svg>
+        </div>
       </div>
       
       <!-- Drama Girl Logo Overlay -->
@@ -249,7 +256,7 @@ export default {
         {
           value: '#FF1493',
           name: 'Deep Pink',
-          gradient: 'linear-gradient(to bottom, #FF69B4, #C71585)'
+          gradient: 'linear-gradient(45deg, #FF1493, #7F00FF, #FFD700, #FF1493)'
         },
         {
           value: '#FF69B4',
@@ -259,7 +266,7 @@ export default {
         {
           value: '#FF20B2',
           name: 'Magenta',
-          gradient: 'linear-gradient(to bottom, #FF69B4, #B8005F)'
+          gradient: 'linear-gradient(45deg, #FF20B2, #00FFFF, #FFD700, #FF20B2)'
         },
         {
           value: '#C71585',
@@ -280,7 +287,7 @@ export default {
         {
           value: '#00FFFF',
           name: 'Electric Cyan',
-          gradient: 'linear-gradient(to bottom, #00FFFF, #00BFFF)'
+          gradient: 'linear-gradient(45deg, #00FFFF, #FF1493, #00FF00, #00FFFF)'
         },
         {
           value: '#00CED1',
@@ -311,7 +318,7 @@ export default {
         {
           value: '#8A2BE2',
           name: 'Blue Violet',
-          gradient: 'linear-gradient(to bottom, #9932CC, #4B0082)'
+          gradient: 'linear-gradient(45deg, #8A2BE2, #00FFFF, #FFD700, #8A2BE2)'
         },
         {
           value: '#9400D3',
@@ -322,7 +329,7 @@ export default {
         {
           value: '#00FF00',
           name: 'Lime Green',
-          gradient: 'linear-gradient(to bottom, #32CD32, #228B22)'
+          gradient: 'linear-gradient(45deg, #00FF00, #FF20B2, #00FFFF, #00FF00)'
         },
         {
           value: '#ADFF2F',
@@ -369,7 +376,7 @@ export default {
         {
           value: '#FFD700',
           name: 'Gold',
-          gradient: 'linear-gradient(to bottom, #FFF700, #DAA520)'
+          gradient: 'linear-gradient(45deg, #FFD700, #FF1493, #7F00FF, #FFD700)'
         },
         {
           value: '#FFA500',
@@ -395,9 +402,9 @@ export default {
       ],
       animationOptions: [
         {
-          name: 'Slow Gradient Fade',
+          name: 'Gradient',
           value: 'gradient',
-          description: 'Smooth gradient background animation'
+          description: 'Vibrant gradient background animation'
         },
         {
           name: 'Wavy Text',
@@ -564,8 +571,8 @@ export default {
       this.stars.forEach(star => {
         // Space travel animation logic
         if (this.spaceTravel) {
-          // Move star closer (decrease z)
-          star.z -= star.speed
+          // Move star closer (decrease z) - slower speed
+          star.z -= star.speed * 0.3 // Reduced speed by 70%
           
           // Reset star position when it gets too close
           if (star.z <= 1) {
@@ -594,7 +601,8 @@ export default {
           return
         }
         
-        // Calculate twinkling effect
+        // Calculate twinkling effect - slower in space travel mode
+        const twinkleSpeed = this.spaceTravel ? star.twinkleSpeed * 0.5 : star.twinkleSpeed // Slower twinkling in space travel
         const twinkle = Math.sin(star.twinklePhase) * 0.3 + 0.7
         const currentBrightness = star.brightness * twinkle
         const currentSize = star.size * (0.8 + twinkle * 0.4)
@@ -628,8 +636,8 @@ export default {
         
         // Add sparkle effect for larger stars with reduced frequency in space travel mode
         if (star.size > 2) {
-          // In space travel mode, only show sparkles occasionally (1-2 times per second)
-          const sparkleFrequency = this.spaceTravel ? 0.03 : 1.0 // 3% chance vs always
+          // In space travel mode, greatly reduce sparkle frequency for smoother experience
+          const sparkleFrequency = this.spaceTravel ? 0.01 : 1.0 // 1% chance vs always (reduced from 3%)
           const shouldShowSparkle = this.spaceTravel ? Math.random() < sparkleFrequency : true
           
           if (shouldShowSparkle) {
@@ -653,8 +661,8 @@ export default {
         
         ctx.restore()
         
-        // Update twinkle phase
-        star.twinklePhase += star.twinkleSpeed
+        // Update twinkle phase with adjusted speed
+        star.twinklePhase += twinkleSpeed
       })
     },
     
@@ -731,43 +739,44 @@ export default {
     },
 
     getStarfieldStyle(index) {
-      // Creates natural starfield pattern with 18 stars using cool-toned colors
+      // Creates natural starfield pattern with 18 stars using diverse colors
       // Stars are positioned to avoid central logo area with varying sizes and opacity
       const positions = [
-        // Top area stars
-        { top: '8%', left: '15%', color: '#F0F8FF', size: '0.6rem', opacity: 0.7 },    // Alice blue, small
-        { top: '12%', left: '35%', color: '#FFFACD', size: '0.4rem', opacity: 0.5 },   // Lemon chiffon, tiny
-        { top: '18%', left: '65%', color: '#F5F5DC', size: '0.8rem', opacity: 0.8 },   // Beige, small-med
-        { top: '15%', left: '85%', color: '#FFFFF0', size: '0.5rem', opacity: 0.6 },   // Ivory, small
+        // Top area stars - Cool blues and purples
+        { top: '8%', left: '15%', color: '#87CEEB', size: '0.6rem', opacity: 0.7 },     // Sky blue
+        { top: '12%', left: '35%', color: '#DDA0DD', size: '0.4rem', opacity: 0.5 },    // Plum
+        { top: '18%', left: '65%', color: '#20B2AA', size: '0.8rem', opacity: 0.8 },    // Light sea green
+        { top: '15%', left: '85%', color: '#9370DB', size: '0.5rem', opacity: 0.6 },    // Medium purple
 
-        // Upper-middle area stars
-        { top: '25%', left: '10%', color: '#F8F8FF', size: '0.7rem', opacity: 0.9 },   // Ghost white, small
-        { top: '30%', left: '88%', color: '#FFF8DC', size: '0.4rem', opacity: 0.4 },   // Cornsilk, tiny
-        { top: '35%', left: '5%', color: '#FFFAF0', size: '0.6rem', opacity: 0.7 },    // Floral white, small
+        // Upper-middle area stars - Warm golds and oranges
+        { top: '25%', left: '10%', color: '#FFD700', size: '0.7rem', opacity: 0.9 },    // Gold
+        { top: '30%', left: '88%', color: '#FF6347', size: '0.4rem', opacity: 0.4 },    // Tomato
+        { top: '35%', left: '5%', color: '#FFA500', size: '0.6rem', opacity: 0.7 },     // Orange
 
-        // Middle area stars (avoiding logo space)
-        { top: '45%', left: '8%', color: '#F0FFFF', size: '0.5rem', opacity: 0.6 },    // Azure, small
-        { top: '50%', left: '90%', color: '#F5F5F5', size: '0.8rem', opacity: 0.8 },   // White smoke, small-med
-        { top: '40%', left: '12%', color: '#FFFAFA', size: '0.4rem', opacity: 0.5 },   // Snow, tiny
+        // Middle area stars (avoiding logo space) - Pinks and cyans
+        { top: '45%', left: '8%', color: '#FF69B4', size: '0.5rem', opacity: 0.6 },     // Hot pink
+        { top: '50%', left: '90%', color: '#00FFFF', size: '0.8rem', opacity: 0.8 },    // Cyan
+        { top: '40%', left: '12%', color: '#FF1493', size: '0.4rem', opacity: 0.5 },    // Deep pink
 
-        // Lower-middle area stars
-        { top: '65%', left: '7%', color: '#F0F0F0', size: '0.7rem', opacity: 0.9 },    // Gainsboro, small
-        { top: '68%', left: '85%', color: '#FFF5EE', size: '0.6rem', opacity: 0.7 },   // Seashell, small
-        { top: '72%', left: '92%', color: '#FFFFF0', size: '0.4rem', opacity: 0.6 },   // Ivory, tiny
+        // Lower-middle area stars - Greens and teals
+        { top: '65%', left: '7%', color: '#00FA9A', size: '0.7rem', opacity: 0.9 },     // Medium spring green
+        { top: '68%', left: '85%', color: '#40E0D0', size: '0.6rem', opacity: 0.7 },    // Turquoise
+        { top: '72%', left: '92%', color: '#98FB98', size: '0.4rem', opacity: 0.6 },    // Pale green
 
-        // Bottom area stars
-        { top: '80%', left: '20%', color: '#F8F8FF', size: '0.5rem', opacity: 0.8 },   // Ghost white, small
-        { top: '85%', left: '45%', color: '#FFFACD', size: '0.7rem', opacity: 0.7 },   // Lemon chiffon, small
-        { top: '88%', left: '70%', color: '#F0F8FF', size: '0.6rem', opacity: 0.6 },   // Alice blue, small
-        { top: '82%', left: '88%', color: '#F5F5DC', size: '0.4rem', opacity: 0.5 },   // Beige, tiny
-        { top: '90%', left: '15%', color: '#FFFFF0', size: '0.8rem', opacity: 0.9 }    // Ivory, small-med
+        // Bottom area stars - Purples and reds
+        { top: '80%', left: '20%', color: '#DA70D6', size: '0.5rem', opacity: 0.8 },    // Orchid
+        { top: '85%', left: '45%', color: '#DC143C', size: '0.7rem', opacity: 0.7 },    // Crimson
+        { top: '88%', left: '70%', color: '#BA55D3', size: '0.6rem', opacity: 0.6 },    // Medium orchid
+        { top: '82%', left: '88%', color: '#FF4500', size: '0.4rem', opacity: 0.5 },    // Orange red
+        { top: '90%', left: '15%', color: '#8A2BE2', size: '0.8rem', opacity: 0.9 }     // Blue violet
       ]
-      const pos = positions[index - 1] || { top: '50%', left: '50%', color: '#F8F8FF', size: '0.5rem', opacity: 0.7 }
+      const pos = positions[index - 1] || { top: '50%', left: '50%', color: '#87CEEB', size: '0.5rem', opacity: 0.7 }
       return {
         top: pos.top,
         left: pos.left,
         color: pos.color,
-        fontSize: pos.size,
+        width: pos.size,
+        height: pos.size,
         opacity: pos.opacity
       }
     },
@@ -776,27 +785,29 @@ export default {
       // Creates 12 sparkle positions around and on the text for luxurious gemstone effect
       // Each sparkle has unique color, position, and animation delay for dynamic shimmer
       const positions = [
-        // Sparkles around the text
-        { top: '10%', left: '20%', delay: '0s', color: '#FFD700' },      // Gold
-        { top: '15%', left: '75%', delay: '0.8s', color: '#E6E6FA' },    // Lavender
-        { top: '25%', left: '10%', delay: '1.2s', color: '#FFFACD' },    // Lemon chiffon
-        { top: '35%', left: '85%', delay: '0.4s', color: '#F0F8FF' },    // Alice blue
-        { top: '45%', left: '15%', delay: '1.6s', color: '#FFE4E1' },    // Misty rose
-        { top: '55%', left: '80%', delay: '2.0s', color: '#E0FFFF' },    // Light cyan
-        { top: '65%', left: '25%', delay: '0.6s', color: '#FAFAD2' },    // Light goldenrod
-        { top: '75%', left: '70%', delay: '1.4s', color: '#F5FFFA' },    // Mint cream
-        { top: '85%', left: '45%', delay: '1.8s', color: '#FFF0F5' },    // Lavender blush
-        // Closer sparkles on text
-        { top: '40%', left: '40%', delay: '0.2s', color: '#FFFFFF' },     // White
-        { top: '50%', left: '55%', delay: '1.0s', color: '#F8F8FF' },     // Ghost white
-        { top: '60%', left: '35%', delay: '1.3s', color: '#FFFAFA' }      // Snow
+        // Sparkles around the text - Rich jewel tones
+        { top: '10%', left: '20%', delay: '0s', color: '#FFD700', size: '0.8rem' },      // Gold
+        { top: '15%', left: '75%', delay: '0.8s', color: '#E6E6FA', size: '0.6rem' },    // Lavender
+        { top: '25%', left: '10%', delay: '1.2s', color: '#FF69B4', size: '0.9rem' },    // Hot pink
+        { top: '35%', left: '85%', delay: '0.4s', color: '#00FFFF', size: '0.7rem' },    // Cyan
+        { top: '45%', left: '15%', delay: '1.6s', color: '#FF1493', size: '0.8rem' },    // Deep pink
+        { top: '55%', left: '80%', delay: '2.0s', color: '#40E0D0', size: '0.6rem' },    // Turquoise
+        { top: '65%', left: '25%', delay: '0.6s', color: '#9370DB', size: '0.8rem' },    // Medium purple
+        { top: '75%', left: '70%', delay: '1.4s', color: '#00FA9A', size: '0.7rem' },    // Medium spring green
+        { top: '85%', left: '45%', delay: '1.8s', color: '#FF6347', size: '0.9rem' },    // Tomato
+        // Closer sparkles on text - Bright jewel colors
+        { top: '40%', left: '40%', delay: '0.2s', color: '#FFFFFF', size: '0.8rem' },     // White
+        { top: '50%', left: '55%', delay: '1.0s', color: '#DA70D6', size: '0.7rem' },     // Orchid
+        { top: '60%', left: '35%', delay: '1.3s', color: '#20B2AA', size: '0.8rem' }      // Light sea green
       ]
-      const pos = positions[index - 1] || { top: '50%', left: '50%', delay: '0s', color: '#FFFFFF' }
+      const pos = positions[index - 1] || { top: '50%', left: '50%', delay: '0s', color: '#FFFFFF', size: '0.8rem' }
       return {
         top: pos.top,
         left: pos.left,
         '--sparkle-delay': pos.delay,
-        color: pos.color
+        color: pos.color,
+        width: pos.size,
+        height: pos.size
       }
     }
   }
@@ -893,8 +904,8 @@ export default {
 
 .controls-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
   align-items: start;
   margin-bottom: 2rem;
 }
@@ -903,6 +914,74 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+/* Compact dropdown overrides */
+.control-group :deep(.custom-dropdown),
+.control-group :deep(.color-dropdown) {
+  max-width: 180px;
+}
+
+.control-group :deep(.dropdown-toggle) {
+  padding: 0.75rem 0.8rem;
+  gap: 0.3rem;
+}
+
+.control-group :deep(.dropdown-label) {
+  font-size: 0.8rem;
+}
+
+.control-group :deep(.dropdown-value) {
+  font-size: 1rem;
+}
+
+.control-group :deep(.color-name) {
+  font-size: 1rem;
+}
+
+.control-group :deep(.dropdown-arrow) {
+  right: 0.8rem;
+  font-size: 0.7rem;
+}
+
+.control-group :deep(.dropdown-menu) {
+  max-height: 200px;
+}
+
+.control-group :deep(.dropdown-item) {
+  padding: 0.75rem;
+  gap: 0.2rem;
+}
+
+.control-group :deep(.dropdown-item-preview) {
+  font-size: 0.95rem;
+}
+
+.control-group :deep(.dropdown-item-description) {
+  font-size: 0.75rem;
+}
+
+/* Color dropdown specific overrides */
+.control-group :deep(.color-item-info) {
+  gap: 0.1rem;
+}
+
+.control-group :deep(.color-item-name) {
+  font-size: 0.95rem;
+}
+
+.control-group :deep(.color-item-value) {
+  font-size: 0.7rem;
+}
+
+.control-group :deep(.color-preview) {
+  width: 24px;
+  height: 24px;
+}
+
+.control-group :deep(.color-item-preview) {
+  width: 22px;
+  height: 22px;
 }
 
 .control-checkboxes {
@@ -1027,13 +1106,13 @@ export default {
 /* Logo with gradient background */
 .drama-logo.gradient {
   background: var(--selected-gradient);
-  background-size: 600% 600%;
+  background-size: 800% 800%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow: none;
   position: relative;
-  animation: gradientShift 12s ease-in-out infinite;
+  animation: gradientShift 6s ease-in-out infinite;
 }
 
 /* Non-gradient animations should use the selected color */
@@ -1071,8 +1150,8 @@ export default {
 
 /* Animation Classes */
 .drama-logo.gradient {
-  background-size: 400% 400%;
-  animation: gradientShift 12s ease-in-out infinite;
+  background-size: 600% 600%;
+  animation: gradientShift 6s ease-in-out infinite;
 }
 
 .wavy-text span {
@@ -1104,10 +1183,11 @@ export default {
 
 /* Logo Animations */
 @keyframes gradientShift {
-  0%, 100% { background-position: 0% 30%; }
-  25% { background-position: 70% 0%; }
-  50% { background-position: 100% 70%; }
-  75% { background-position: 30% 100%; }
+  0% { background-position: 0% 0%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 50% 100%; }
+  75% { background-position: 0% 50%; }
+  100% { background-position: 0% 0%; }
 }
 
 @keyframes wave {
@@ -1159,16 +1239,25 @@ export default {
 
 .star {
   position: absolute;
-  font-size: 1rem; /* Base size, overridden by getStarfieldStyle() */
-  filter: drop-shadow(0 0 8px currentColor);
+  width: 1rem; /* Base size, overridden by getStarfieldStyle() */
+  height: 1rem;
   z-index: 1; /* Behind the logo text for depth */
+}
+
+.star svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 8px currentColor);
 }
 
 .starfield .starfield-star {
   animation: starfieldTwinkle 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 4px currentColor);
   z-index: 1; /* Behind the logo text for depth */
   transform-origin: center;
+}
+
+.starfield .starfield-star svg {
+  filter: drop-shadow(0 0 4px currentColor);
 }
 
 @keyframes starfieldTwinkle {
@@ -1191,11 +1280,17 @@ export default {
 
 .sparkle {
   position: absolute;
-  font-size: 0.8rem;
+  width: 0.8rem;
+  height: 0.8rem;
   animation: sparkleShimmer 2.5s ease-in-out infinite;
   animation-delay: var(--sparkle-delay, 0s);
-  filter: drop-shadow(0 0 6px currentColor);
   transform-origin: center;
+}
+
+.sparkle svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 6px currentColor);
 }
 
 @keyframes sparkleShimmer {
@@ -1227,6 +1322,13 @@ export default {
   pointer-events: none;
 }
 
+
+/* Media Queries */
+@media (min-width: 1200px) {
+  .controls-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 
 @media (max-width: 1024px) {
   .canvas-container {
@@ -1286,6 +1388,26 @@ export default {
   
   .drama-logo {
     font-size: 2.5rem;
+  }
+  
+  /* Reset compact dropdown overrides on mobile */
+  .control-group :deep(.custom-dropdown),
+  .control-group :deep(.color-dropdown) {
+    max-width: 100%;
+  }
+  
+  .control-group :deep(.dropdown-toggle) {
+    padding: 0.8rem;
+  }
+  
+  .control-group :deep(.color-preview) {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .control-group :deep(.color-item-preview) {
+    width: 26px;
+    height: 26px;
   }
 }
 
