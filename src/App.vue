@@ -8,7 +8,7 @@
         <router-link to="/logo" class="nav-link">Logo Design</router-link>
       </div>
     </nav>
-    
+
     <main class="main-content">
       <router-view />
     </main>
@@ -46,7 +46,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 20px rgba(255, 20, 147, 0.3);
 }
 
 .navbar h1 {
@@ -76,7 +75,6 @@ body {
 .nav-link.router-link-active {
   background-color: rgba(255,255,255,0.3);
   font-weight: 600;
-  box-shadow: 0 2px 8px rgba(255, 20, 147, 0.4);
 }
 
 .main-content {
