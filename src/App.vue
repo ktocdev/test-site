@@ -7,7 +7,7 @@
         <router-link to="/second" class="nav-link">Second Page</router-link>
       </div>
     </nav>
-    
+
     <main class="main-content">
       <router-view />
     </main>
