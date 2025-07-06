@@ -136,8 +136,8 @@
 </template>
 
 <script>
-import CustomButton from './CustomButton.vue'
-import ColorSwatch from './ColorSwatch.vue'
+import CustomButton from '../components/CustomButton.vue'
+import ColorSwatch from '../components/ColorSwatch.vue'
 
 export default {
   name: 'FontShowcase',

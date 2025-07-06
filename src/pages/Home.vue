@@ -1,5 +1,5 @@
 <template>
-  <div class="hello-world">
+  <div class="home">
     <div class="hero-section">
       <h1 class="hero-title">Drama Girl 💃</h1>
       <p class="hero-subtitle">Design Inspiration Toolkit</p>
@@ -60,10 +60,10 @@
 </template>
 
 <script>
-import CustomButton from './CustomButton.vue'
+import CustomButton from '../components/CustomButton.vue'
 
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   components: {
     CustomButton
   },
@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-.hello-world {
+.home {
   max-width: 100%;
   background-color: #1a1a1a;
 }

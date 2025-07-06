@@ -233,12 +233,12 @@
 </template>
 
 <script>
-import CustomButton from './CustomButton.vue'
-import CustomDropdown from './CustomDropdown.vue'
-import ColorDropdown from './ColorDropdown.vue'
-import CustomCheckbox from './CustomCheckbox.vue'
-import GlowDropdown from './GlowDropdown.vue'
-import StrokeDropdown from './StrokeDropdown.vue'
+import CustomButton from '../components/CustomButton.vue'
+import CustomDropdown from '../components/CustomDropdown.vue'
+import ColorDropdown from '../components/ColorDropdown.vue'
+import CustomCheckbox from '../components/CustomCheckbox.vue'
+import GlowDropdown from '../components/GlowDropdown.vue'
+import StrokeDropdown from '../components/StrokeDropdown.vue'
 
 export default {
   name: 'LogoDesign',

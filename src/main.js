@@ -1,15 +1,17 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
-import HelloWorld from './components/HelloWorld.vue'
-import FontShowcase from './components/FontShowcase.vue'
-import LogoDesign from './components/LogoDesign.vue'
+import Home from './pages/Home.vue'
+import FontShowcase from './pages/FontShowcase.vue'
+import LogoDesign from './pages/LogoDesign.vue'
+import Stars from './pages/Stars.vue'
 
 // Define routes
 const routes = [
-  { path: '/', component: HelloWorld },
+  { path: '/', component: Home },
   { path: '/fonts', component: FontShowcase },
-  { path: '/logo', component: LogoDesign }
+  { path: '/logo', component: LogoDesign },
+  { path: '/stars', component: Stars }
 ]
 
 // Create router

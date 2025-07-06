@@ -42,8 +42,9 @@ export default {
   background: linear-gradient(135deg, #333333 0%, #262626 100%);
   border: 2px solid transparent;
   user-select: none;
-  min-width: 0;
-  flex: 1;
+  min-width: 140px;
+  width: auto;
+  flex-shrink: 0;
 }
 
 .custom-checkbox:hover {
@@ -105,6 +106,7 @@ export default {
   font-weight: 500;
   transition: color 0.3s ease;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .custom-checkbox.is-checked .checkbox-label {
